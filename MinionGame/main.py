@@ -1,5 +1,8 @@
 # defined users for this are Stuart and Kevin
 from string import ascii_letters
+import re
+
+
 KEVIN = ["AEIOU"]
 STUART = list(set(ascii_letters).difference(set(KEVIN)))
 
@@ -22,8 +25,9 @@ def _get_substrings(source_string):
 
 
 def _count_single_score(source_string, substring):
-
-    return 0
+    pattern = re.compile(substring)
+    count = len(pattern.findall(source_string))
+    return count
 
 
 def calc_score(person, source_string):
