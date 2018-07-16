@@ -48,3 +48,6 @@ def calc_score(person, source_string):
         if sub_string[0] in person:
             total_score += _count_single_score(source_string, sub_string)
     return total_score
+
+if __name__ == "__main__":
+    print(minion_game("BANANA"))
