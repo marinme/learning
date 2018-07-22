@@ -12,7 +12,7 @@ Goal Create a program that allows the user to input the total weight of each typ
 nickels, dimes, and quarters), and then print out how many of each type of wrapper they would need, how many
 coins they have, and the estimated total value of all of their money.
 
-Weight of each coin: http://www.usmint.gov/about_the_mint/?action=coin_specifications
+Weight of each coin: https://www.usmint.gov/learn/coin-and-medal-programs/coin-specifications
  and how many fit inside each type of wrapper: http://en.wikipedia.org/wiki/Coin_wrapper#Amount_in_a_roll_in_the_United_States
 
 Subgoals
