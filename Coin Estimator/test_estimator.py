@@ -35,7 +35,7 @@ class TestCoin(unittest.TestCase):
         self.one_and_a_half_penny_roll = estimator.Coin(187.5, 'PENNY')
         self.five_hundred_dime_rolls = estimator.Coin(56700, 'DIME')
     def test_get_roll(self):
-        # should return number of equal rolls and remaining estimated value
+        # should return number of equal rolls and remaining estimated value.
         pass
     def test_get_value(self):
         pass
