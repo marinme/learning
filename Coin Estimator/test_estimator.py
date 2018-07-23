@@ -9,7 +9,8 @@ class TestEstimator(unittest.TestCase):
         # test that coin weight and wrapper values match given params
         # test that coin type is accounted for
         # test that exact amounts give the right number of rolls
-        # test that under values are excluded and the remaining amount of coins is listed
+        # test the number of total coins is given
+        # test that the total value of coins is given
         # test high numbers
         # test zero values
 
@@ -36,8 +37,29 @@ class TestCoin(unittest.TestCase):
         self.five_hundred_dime_rolls = estimator.Coin(56700, 'DIME')
     def test_get_roll(self):
         # should return number of equal rolls and remaining estimated value.
-        pass
+
+        # base case testing
+        self.assertEqual(self.single_penny_roll.get_roll(), 1, "Single Penny Roll not valid")
+        self.assertEqual(self.single_nickel_roll.get_roll(), 1, "Single Nickel Roll not valid")
+        self.assertEqual(self.single_dime_roll.get_roll(), 1, "Single Dime Roll not valid")
+        self.assertEqual(self.single_quarter_roll.get_roll(), 1, "Single Quarter Roll not valid")
+        self.assertEqual(self.one_and_a_half_penny_roll.get_roll(), 1, "Roll and a half of pennies should"
+                                                                               " return 1 roll")
+        self.assertEqual(self.five_hundred_dime_rolls.get_roll(), 500, "Five hundred rolls of dimes should "
+                                                                           "return 500 rolls")
+        # extended case testing
+        dirty_pennies = estimator.Coin(501.225, 'PENNY')  # an extra 1.225g of grime on the 500 pennies
+        one_more_penny = estimator.Coin(502.1, 'PENNY')  # missing a chunk of a penny
+        shorted_dimes = estimator.Coin(215.46) # 95 dimes
+        self.assertEqual(dirty_pennies.get_roll(), 50)
+        self.assertEqual(one_more_penny.get_roll(), 50)
+        self.assertEqual(shorted_dimes.get_roll(), 1)  # only enough to fill out one roll
+
     def test_get_value(self):
-        pass
-        # should return estimated value by weight
-        # rounded values will be based on 50% boundaries for whether or not another coin exists
+        self.assertEqual(self.single_penny_roll.get_value(), 50, "125g of pennies should be 50 pennies")
+        self.assertEqual(self.single_nickel_roll.get_value(), 40, "200g of nickels should be 40 nickels")
+        self.assertEqual(self.single_dime_roll.get_value(), 50, "113.4g of dimes should be 50 dimes")
+        self.assertEqual(self.single_quarter_roll.get_value(), 40, "226.8g of quarters should be 40 quarters")
+        self.assertEqual(self.one_and_a_half_penny_roll.get_value(), 75, "187.5g of pennies should be 75 pennies")
+        self.assertEqual(self.five_hundred_dime_rolls.get_value(), 25000, "56,700g of dimes should be 25,000 dimes")
+        # should return estimated number of coins by weight
