@@ -1,3 +1,5 @@
+import decimal
+
 class Coin():
     # given weights in grams
     WEIGHTS = {
@@ -25,5 +27,20 @@ class Coin():
 
     def get_value(self):
         return self.weight // Coin.WEIGHTS.get(self.type, -1)
+
+def estimator(given_weight, weight_unit_type, coin_type):
+    weight = given_weight
+    if weight_unit_type == 'p':
+        weight = convert_units(given_weight, weight_unit_type)
+    coin_collection = Coin(weight, coin_type)
+    return coin_collection.get_value(), coin_collection.get_roll()
+
+
+def convert_units(amount, unit_type):
+    if amount < 0:
+        raise ValueError("unable to convert negative units")
+    if unit_type == 'p':
+        return round(amount * 453.592, 6)
+    return round(amount * 0.00220462, 6)
 
 

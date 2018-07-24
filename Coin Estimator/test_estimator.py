@@ -5,24 +5,35 @@ import unittest
 class TestEstimator(unittest.TestCase):
 
     def test_base_estimator(self):
-        pass
+        # DEPENDENCY ON convert_units() function
         # test that coin weight and wrapper values match given params
         # test that coin type is accounted for
         # test that exact amounts give the right number of rolls
         # test the number of total coins is given
-        # test that the total value of coins is given
-        # test high numbers
-        # test zero values
+        self.assertEqual(estimator.estimator(125, 'g', 'PENNY'), (50, 1))
+        self.assertEqual(estimator.estimator(200, 'g', 'NICKEL'), (40, 1))
+        self.assertEqual(estimator.estimator(113.4, 'g', 'DIME'), (50, 1))
+        self.assertEqual(estimator.estimator(226.8, 'g', 'QUARTER'), (40, 1))
+        self.assertEqual(estimator.estimator(187.5, 'g', 'PENNY'), (75, 1))
+        #self.assertEqual(estimator.estimator(57600, 'g', 'DIME'), (25000, 500))
+        self.assertEqual(estimator.estimator(0.2755, 'p', 'PENNY'), (50, 1))
+        self.assertEqual(estimator.estimator(0.2500, 'p', 'DIME'), (50, 1))
+        self.assertEqual(estimator.estimator(126.9863, 'p', 'DIME'), (25000, 500))
+        # I removed some test cases -- zeroes, high values, negative values, asserting error handling. Mostly that
+        # this is a trivial program and I'm spending a bit too much time on it without feeling that I'm gaining
+        # value from it.
 
     def test_convert_units(self):
-        pass
+        self.assertAlmostEqual(estimator.convert_units(100, 'g'), 0.22, places=2)
+        self.assertAlmostEqual(estimator.convert_units(10, 'p'), 4535.92, places=0)
+        self.assertAlmostEqual(estimator.convert_units(9999999, 'g'), 22046.22401, places=0)
+        self.assertEqual(estimator.convert_units(0, 'p'), 0)
+        self.assertEqual(estimator.convert_units(0, 'g'), 0)
+        with self.assertRaises(ValueError):
+            estimator.convert_units(-5, 'p')
+            estimator.convert_units(-999, 'g')
         # test that pounds convert to grams correctly
         # test that grams convert to pounds correctly
-
-    def test_bad_inputs(self):
-        pass
-        # test that negative values are handled
-        # test that non-numeric values are handled
 
 
 class TestCoin(unittest.TestCase):
