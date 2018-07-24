@@ -35,6 +35,7 @@ class TestCoin(unittest.TestCase):
         self.single_quarter_roll = estimator.Coin(226.8, 'QUARTER')
         self.one_and_a_half_penny_roll = estimator.Coin(187.5, 'PENNY')
         self.five_hundred_dime_rolls = estimator.Coin(56700, 'DIME')
+
     def test_get_roll(self):
         # should return number of equal rolls and remaining estimated value.
 
@@ -44,15 +45,15 @@ class TestCoin(unittest.TestCase):
         self.assertEqual(self.single_dime_roll.get_roll(), 1, "Single Dime Roll not valid")
         self.assertEqual(self.single_quarter_roll.get_roll(), 1, "Single Quarter Roll not valid")
         self.assertEqual(self.one_and_a_half_penny_roll.get_roll(), 1, "Roll and a half of pennies should"
-                                                                               " return 1 roll")
+                                                                       " return 1 roll")
         self.assertEqual(self.five_hundred_dime_rolls.get_roll(), 500, "Five hundred rolls of dimes should "
-                                                                           "return 500 rolls")
+                                                                       "return 500 rolls")
         # extended case testing
-        dirty_pennies = estimator.Coin(501.225, 'PENNY')  # an extra 1.225g of grime on the 500 pennies
-        one_more_penny = estimator.Coin(502.1, 'PENNY')  # missing a chunk of a penny
-        shorted_dimes = estimator.Coin(215.46) # 95 dimes
-        self.assertEqual(dirty_pennies.get_roll(), 50)
-        self.assertEqual(one_more_penny.get_roll(), 50)
+        dirty_pennies = estimator.Coin(1251.225, 'PENNY')  # an extra 1.225g of grime on the 500 pennies
+        one_more_penny = estimator.Coin(1252.1, 'PENNY')  # missing a chunk of a penny
+        shorted_dimes = estimator.Coin(215.46, 'DIME')  # 95 dimes
+        self.assertEqual(dirty_pennies.get_roll(), 10)
+        self.assertEqual(one_more_penny.get_roll(), 10)
         self.assertEqual(shorted_dimes.get_roll(), 1)  # only enough to fill out one roll
 
     def test_get_value(self):
