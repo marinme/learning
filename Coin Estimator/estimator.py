@@ -19,9 +19,6 @@ class Coin():
         self.weight = coin_weight
         self.type = coin_type
 
-    #def __repr__(self):
-    #   return str(self.get_value())
-
     def get_roll(self):
         return self.get_value() // Coin.ROLL_COUNT.get(self.type, -1)
 
@@ -40,7 +37,12 @@ def convert_units(amount, unit_type):
     if amount < 0:
         raise ValueError("unable to convert negative units")
     if unit_type == 'p':
-        return round(amount * 453.592, 6)
-    return round(amount * 0.00220462, 6)
+        return (amount * 453.592) + 0.000005  # adding partial coin to assist in rounding errors
+    if unit_type == 'g':
+        raise NotImplementedError("not using grams to pounds in this current use case")
+    return amount * 0.00220462
 
 
+if __name__=="__main__":
+    coins, rolls = estimator(float(input("Weight:")), input("g or p?"), input("Coin type:"))
+    print("There are {0} coins and it is able to fill {1} rolls for that type of coin".format(coins, rolls))
