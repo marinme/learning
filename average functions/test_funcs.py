@@ -33,8 +33,8 @@ class TestFuncs(unittest.TestCase):
         self.assertEqual(funcs.median(1, 2, 3, 4, 5, 6), [3, 4])
 
     def test_mode(self):
-        self.assertEqual(funcs.mode(1, 1, 2, 3, 4, 5), [1,2])
-        self.assertEqual(funcs.mode(1, 1, 2, 2, 2, 3, 4), [3])
+        self.assertEqual(funcs.mode(1, 1, 2, 3, 4, 5), [1])
+        self.assertEqual(funcs.mode(1, 1, 2, 2, 2, 3, 4), [2])
 
     def test_mode_subgoal(self):
-        self.assertEqual(funcs.mode(1,1,2,2), list(1, 2))
+        self.assertEqual(funcs.mode(1,1,2,2), list((1, 2)))

@@ -12,5 +12,11 @@ def median(*args):
     else:
         return [vars[(len(vars) // 2)]]
 
-def mode():
-    pass
+def mode(*args):
+    count = {}
+    for value in args:
+        count[value] = count.get(value, 0) + 1
+    max = sorted(count.items(), key=lambda x: x[1], reverse=True)[0][1]
+    results = [key for key, value in count.items() if value == max]
+    return results
+
